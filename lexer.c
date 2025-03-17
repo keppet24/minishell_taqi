@@ -204,10 +204,18 @@ int	main()
 			printf("%c",token.start[j]);
 			j++;
 		}
-		printf("%d", token.type);
+		printf(" %d", token.type);
 		printf("\n");
 		ft_putchar(10);
 	}
 	printf("%c\n",scanner.current[0]);
 	return (0);
 }
+
+// ls "asd asd asd   "asd
+// ls asd"   salut     "
+// echo asda"asdasd   "asd
+// "asd"asd
+// ls >>> cat => renvoyer syntax error 
+// ls|cat
+// ls| cat
