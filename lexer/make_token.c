@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:04:03 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/24 18:31:54 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/03/28 20:18:49 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ t_token	string(char quote)
 {
 	while (peek() != quote && !is_at_end())
 		advance();
+	if (is_at_end())
+		return (make_token(ERROR));
 	advance();
-	while (!is_sep(peek()) && !is_at_end())
-		advance();
-	return (make_token(COMMAND));
+	// while (!is_sep(peek()) && !is_at_end())
+	// 	advance();
+	return (make_token(STRING));
 }
 
 t_token	expand(void)

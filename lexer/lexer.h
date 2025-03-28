@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:52:33 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/24 18:53:18 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/03/28 19:34:19 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_token_type
 	APPEND,
 	EMPTY_STRING,
 	EXPAND,
+	STRING,
 	WHITESPACE,
 	NONE,
 	ERROR
@@ -40,6 +41,7 @@ typedef struct s_token
 	t_token_type	type;
 	char			*start;
 	int				length;
+	struct s_token	*next;
 }	t_token;
 
 typedef struct s_scanner
