@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/29 16:51:01 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/03/29 17:16:45 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,22 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (s[i] == (unsigned char) c)
+		return ((char *)&s[i]);
+	return (0);
+}
+
 void	expand_one_token(t_token *token_node)
 {
 	char		*value;
@@ -204,6 +220,11 @@ void	expand_string(t_token **head ,t_token *node)
 		j++;
 	}
 	value_token[i] = 0;
+	if (!ft_strchr(value_token, '$'))
+	{
+		free(value_token);
+		return ;
+	}
 	init_scanner(value_token);
 	create_list_of_token(head);
 	// printf("le noeud de base, %s \n", node->start);
