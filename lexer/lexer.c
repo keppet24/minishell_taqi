@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/28 20:13:45 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:51:01 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,30 @@ void	print_list(t_token **head)
 	}
 }
 
+void	create_list_of_token(t_token **head)
+{
+	int	j;
+	t_token	token;
+	t_token *token_list;
+
+	j = 0;
+	while (!is_at_end())
+	{
+		j = 0;
+		token = scan_one_token();
+		token_list = malloc(sizeof(t_token));
+		*token_list = token;
+		insert_last(head, token_list);
+		// while (token.start[j] && j < token.length)
+		// {
+		// 	printf("%c", token.start[j]);
+		// 	j++;
+		// }
+		// printf(" %s", type_to_str(token.type));
+		// printf("\n");
+	}
+}
+
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -159,17 +183,32 @@ void	expand_one_token(t_token *token_node)
 		j++;
 	}
 	value_token[i] = 0;
-	//printf("value token donne %s \n", value_token);
 	value = getenv(value_token);
-	//printf(" getenv  renvoie %s \n", value);
 	token_node->start = value;
 	token_node->length = ft_strlen(value);
 }
 
-// void	expand_string(t_token *node)
-// {
-	
-// }
+void	expand_string(t_token **head ,t_token *node)
+{
+	char	*value_token;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 1;
+	value_token = malloc(sizeof(char) * (node->length));
+	while (i < (node->length - 2))
+	{
+		value_token[i] = node->start[j];
+		i++;
+		j++;
+	}
+	value_token[i] = 0;
+	init_scanner(value_token);
+	create_list_of_token(head);
+	// printf("le noeud de base, %s \n", node->start);
+	// printf("string mais sans les guillemets, %s \n", value_token);
+}
 
 void	scan_token_list(t_token **head)
 {
@@ -180,8 +219,8 @@ void	scan_token_list(t_token **head)
 	{
 		if (parcours->type == EXPAND)
 			expand_one_token(parcours);
-		// else if (parcours->type == STRING)
-		// 	expand_string(parcours);
+		else if (parcours->type == STRING)
+			expand_string(head ,parcours);
 		parcours = parcours->next;
 	}
 }
@@ -189,31 +228,33 @@ void	scan_token_list(t_token **head)
 int	main(void)
 {
 	char	*source;
-	int		j;
-	t_token	token;
-	t_token *token_list;
+	//char	*source_2;
+	// int		j;
+	// t_token	token;
+	// t_token *token_list;
 	t_token	*head;
 
 	source = readline("Rentrez une commande: ");
 	init_scanner(source);
 	head = NULL;
-	while (!is_at_end())
-	{
-		j = 0;
-		token = scan_one_token();
-		token_list = malloc(sizeof(t_token));
-		*token_list = token;
-		insert_last(&head, token_list);
-		while (token.start[j] && j < token.length)
-		{
-			printf("%c", token.start[j]);
-			j++;
-		}
-		printf(" %s", type_to_str(token.type));
-		printf("\n");
-	}
+	create_list_of_token(&head);
+	// while (!is_at_end())
+	// {
+	// 	j = 0;
+	// 	token = scan_one_token();
+	// 	token_list = malloc(sizeof(t_token));
+	// 	*token_list = token;
+	// 	insert_last(&head, token_list);
+	// 	while (token.start[j] && j < token.length)
+	// 	{
+	// 		printf("%c", token.start[j]);
+	// 		j++;
+	// 	}
+	// 	printf(" %s", type_to_str(token.type));
+	// 	printf("\n");
+	// }
 	printf(" ma lste chaine ======================================= \n");
-	//scan_token_list(&head);
+	scan_token_list(&head);
 	print_list(&head);
 	return (0);
 }
