@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/29 17:16:45 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/03/31 19:44:11 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	print_list(t_token **head)
 	}
 }
 
-void	create_list_of_token(t_token **head)
+int	create_list_of_token(t_token **head)
 {
 	int	j;
 	t_token	token;
@@ -141,19 +141,13 @@ void	create_list_of_token(t_token **head)
 	j = 0;
 	while (!is_at_end())
 	{
-		j = 0;
 		token = scan_one_token();
 		token_list = malloc(sizeof(t_token));
 		*token_list = token;
 		insert_last(head, token_list);
-		// while (token.start[j] && j < token.length)
-		// {
-		// 	printf("%c", token.start[j]);
-		// 	j++;
-		// }
-		// printf(" %s", type_to_str(token.type));
-		// printf("\n");
+		j++;	
 	}
+	return (j);
 }
 
 int	ft_strlen(char *s)
@@ -161,6 +155,8 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -200,8 +196,63 @@ void	expand_one_token(t_token *token_node)
 	}
 	value_token[i] = 0;
 	value = getenv(value_token);
+	if (!value)
+		return ;
 	token_node->start = value;
 	token_node->length = ft_strlen(value);
+}
+
+void	print_one_token(t_token *node)
+{
+	int	i;
+	i = 0;
+	while (i < node->length)
+	{
+		printf("%c", node->start[i]);
+		i++;
+	}
+	printf("\n");
+}
+
+int		size_of_merged_string(t_token *node, int nbr_of_token)
+{
+	t_token *parcours;
+	int		i;
+	int		resu;
+
+	i = 0;
+	parcours = node;
+	resu = 0;
+	printf("================================================================ \n");
+	printf("Quand j'appelle size_of_merged_string je suis sur ce token : \n");
+	print_one_token(parcours);
+	while (i < nbr_of_token)
+	{
+		resu += parcours->length;
+		parcours = parcours->next;
+		printf("je parcours pour size_merged et la j'ai \n");
+		print_one_token(parcours);
+		i++;
+	}
+	printf("================================================================ \n");	
+	return (resu);
+}
+
+void	merge_string(t_token **head, int nbr_of_token)
+{
+	t_token	*parcours;
+	int		i;
+	int		size;
+	
+	i = 0;
+	parcours = *head;
+	while (parcours->type != STRING)
+		parcours = parcours->next;
+	printf("================================================================ \n");	
+	printf("Ensuite je rentre dans la fonction merge string et je parcours jusqu'a\n");
+	print_one_token(parcours);
+	size = size_of_merged_string(parcours, nbr_of_token);
+	printf("la longueur de la nouvelle string a malloc est de %d \n", size);
 }
 
 void	expand_string(t_token **head ,t_token *node)
@@ -209,6 +260,7 @@ void	expand_string(t_token **head ,t_token *node)
 	char	*value_token;
 	int		i;
 	int		j;
+	int		nbr_of_token;
 
 	i = 0;
 	j = 1;
@@ -226,9 +278,11 @@ void	expand_string(t_token **head ,t_token *node)
 		return ;
 	}
 	init_scanner(value_token);
-	create_list_of_token(head);
-	// printf("le noeud de base, %s \n", node->start);
-	// printf("string mais sans les guillemets, %s \n", value_token);
+	nbr_of_token = create_list_of_token(head);
+	printf("================================================================ \n");	
+	printf("Premiere etape je cree les nouveaux tokens \n");
+	print_list(head);
+	//merge_string(head, nbr_of_token);
 }
 
 void	scan_token_list(t_token **head)
@@ -249,39 +303,17 @@ void	scan_token_list(t_token **head)
 int	main(void)
 {
 	char	*source;
-	//char	*source_2;
-	// int		j;
-	// t_token	token;
-	// t_token *token_list;
+	int		nbr_of_token;
 	t_token	*head;
 
 	source = readline("Rentrez une commande: ");
 	init_scanner(source);
 	head = NULL;
 	create_list_of_token(&head);
-	// while (!is_at_end())
-	// {
-	// 	j = 0;
-	// 	token = scan_one_token();
-	// 	token_list = malloc(sizeof(t_token));
-	// 	*token_list = token;
-	// 	insert_last(&head, token_list);
-	// 	while (token.start[j] && j < token.length)
-	// 	{
-	// 		printf("%c", token.start[j]);
-	// 		j++;
-	// 	}
-	// 	printf(" %s", type_to_str(token.type));
-	// 	printf("\n");
-	// }
-	printf(" ma lste chaine ======================================= \n");
 	scan_token_list(&head);
+//	merge_string();
+	printf("================================================================ \n");	
+	printf("ca c'est mon print_list final \n");
 	print_list(&head);
 	return (0);
 }
-
-// if (peek() == '"' || peek() == 39)
-// {
-// 	advance();
-// 	return (string(peek()));
-// }
