@@ -6,7 +6,7 @@
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/01 19:01:11 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/01 22:44:53 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,51 +37,38 @@ void	expand_one_token(t_token *token_node)
 	token_node->length = ft_strlen(value);
 }
 
-int		size_of_merged_string(t_token *node, int nbr_of_token)
+int		size_of_merged_string(t_token **sub_linked)
 {
 	t_token *parcours;
-	int		i;
 	int		resu;
 
-	i = 0;
-	parcours = node;
+	parcours = *sub_linked;
 	resu = 0;
 	printf("================================================================ \n");
 	printf("Quand j'appelle size_of_merged_string je suis sur ce token : \n");
 	print_one_token(parcours);
-	while (i < nbr_of_token)
+	while (parcours != NULL)
 	{
 		resu += parcours->length;
 		parcours = parcours->next;
 		printf("je parcours pour size_merged et la j'ai \n");
-		print_one_token(parcours);
-		i++;
+		//print_one_token(parcours);
 	}
-	printf("================================================================ \n");	
+	printf("================================================================ \n");
+	printf("resu = %d \n",resu );	
 	return (resu);
 }
 
-void	merge_string(t_token **head, int nbr_of_token)
-{
-	t_token	*parcours;
-	int		size;
+// void	merge_string(t_token **head)
+// {
 	
-	parcours = *head;
-	while (parcours->type != STRING)
-		parcours = parcours->next;
-	printf("================================================================ \n");	
-	printf("Ensuite je rentre dans la fonction merge string et je parcours jusqu'a\n");
-	print_one_token(parcours);
-	size = size_of_merged_string(parcours, nbr_of_token);
-	printf("la longueur de la nouvelle string a malloc est de %d \n", size);
-}
+// }
 
-void	expand_string(t_token **head ,t_token *node)
+char	*return_string_from_quote(t_token *node)
 {
 	char	*value_token;
 	int		i;
 	int		j;
-	int		nbr_of_token;
 
 	i = 0;
 	j = 1;
@@ -96,14 +83,26 @@ void	expand_string(t_token **head ,t_token *node)
 	if (!ft_strchr(value_token, '$'))
 	{
 		free(value_token);
-		return ;
+		return (NULL);
 	}
-	init_scanner(value_token);
-	nbr_of_token = create_list_of_token(head);
+	return (value_token);
+}
+
+void	expand_string(t_token **head ,t_token *node)
+{
+	char	*str;
+	t_token	*sub_linked_list;
+	(void)head;
+	int		size;
+
+	sub_linked_list = NULL;
+	str = return_string_from_quote(node);
+	init_scanner(str);
+	create_list_of_token(&sub_linked_list);
 	printf("================================================================ \n");	
-	printf("Premiere etape je cree les nouveaux tokens \n");
-	print_list(head);
-	merge_string(head, nbr_of_token);
+	printf("Voici  la sous liste chaine de token \n");
+	print_list(&sub_linked_list);
+	size = size_of_merged_string(&sub_linked_list);
 }
 
 void	expand_token(t_token **head)
