@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:04:03 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/28 20:18:49 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:33:59 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ t_token	expand(void)
 char	*skip_white(void)
 {
 	char	*pos;
-	int		resu;
+	//int		resu;
 
 	pos = scanner()->current;
 	while (is_space(peek()))
 	{
 		advance();
 	}
-	resu = (int)(scanner()->current - pos);
+	//resu = (int)(scanner()->current - pos);
 	return (pos);
 }
