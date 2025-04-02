@@ -6,7 +6,7 @@
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/01 19:04:09 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/02 11:51:24 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,8 @@ int	main(void)
 	printf("============================================================== \n");	
 	printf("Mon expand renvoie \n");
 	expand_token(&head);
+	printf("================================================================ \n");	
+	printf("maintenant la liste chaine c'est : \n");
+	print_list(&head);
 	return (0);
 }
