@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_linked_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:58:32 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/01 18:58:55 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/04 14:43:52 by taqi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,43 @@ void	insert_last(t_token **head, t_token *token_list)
 	token_list->next = NULL;
 }
 
-int	create_list_of_token(t_token **head)
+// int	create_list_of_token(t_token **head)
+// {
+// 	int	j;
+// 	t_token	token;
+// 	t_token *token_list;
+
+// 	j = 0;
+// 	while (!is_at_end())
+// 	{
+// 		token = scan_one_token();
+// 		token_list = malloc(sizeof(t_token));
+// 		token_list->start = token.start;
+// 		token_list->length = token.length;
+// 		token_list->type = token.type;
+// 		token_list->next = NULL;
+// 		insert_last(head, token_list);
+// 		j++;	
+// 	}
+// 	return (j);
+// }
+
+int create_list_of_token(t_token **head)
 {
-	int	j;
-	t_token	token;
+	int j = 0;
+	t_token token;
 	t_token *token_list;
 
-	j = 0;
 	while (!is_at_end())
 	{
 		token = scan_one_token();
 		token_list = malloc(sizeof(t_token));
-		*token_list = token;
+		token_list->start = strndup(token.start, token.length);
+		token_list->length = token.length;
+		token_list->type = token.type;
+		token_list->next = NULL;
 		insert_last(head, token_list);
-		j++;	
+		j++;
 	}
 	return (j);
 }

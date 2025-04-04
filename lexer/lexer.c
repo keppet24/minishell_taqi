@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/02 11:51:24 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/04 14:27:45 by taqi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,21 @@ const char	*type_to_str(t_token_type type)
 	return ("ERROR");
 }
 
+void	free_all(t_token **head)
+{
+	t_token *parcours;
+	t_token	*tmp;
+
+	parcours = *head;
+	while (parcours)
+	{
+		tmp = parcours->next;
+		free(parcours);
+		parcours = tmp;
+	}
+	*head = NULL;
+}
+
 int	main(void)
 {
 	char	*source;
@@ -101,14 +116,17 @@ int	main(void)
 	init_scanner(source);
 	head = NULL;
 	create_list_of_token(&head);
-	printf(" Mon lexer renvoie\n");
-	printf("============================================================== \n");	
-	print_list(&head);
-	printf("============================================================== \n");	
-	printf("Mon expand renvoie \n");
+	//printf(" Mon lexer renvoie\n");
+	//printf("============================================================== \n");	
+	//print_list(&head);
+	//printf("============================================================== \n");	
+	//printf("Mon expand renvoie \n");
 	expand_token(&head);
-	printf("================================================================ \n");	
+	//printf("================================================================ \n");	
 	printf("maintenant la liste chaine c'est : \n");
 	print_list(&head);
+	
+	free_token_list(&head);
+	free(source);
 	return (0);
 }

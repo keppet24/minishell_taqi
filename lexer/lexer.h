@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:52:33 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/01 18:59:38 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/03 16:32:25 by taqi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ t_token		expand(void);
 t_token		create_single_token(char c);
 t_token		scan_one_token(void);
 const char	*type_to_str(t_token_type type);
+void		free_all(t_token **head);
+
 
 //create_linked_list.c
 void	insert_at_head(t_token **head, t_token *token);

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:45:55 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/01 19:00:54 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/04 14:45:25 by taqi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lexer/lexer.h"
 #include "expand.h"
-
 
 int	ft_strlen(char *s)
 {
@@ -40,4 +39,28 @@ char	*ft_strchr(const char *s, int c)
 	if (s[i] == (unsigned char) c)
 		return ((char *)&s[i]);
 	return (0);
+}
+
+void free_token_list(t_token **head)
+{
+    t_token *current;
+	
+	current = *head;
+    t_token *next;
+
+    while (current)
+    {
+        next = current->next;
+        free(current->start);
+        free(current);
+        current = next;
+    }
+    *head = NULL;
+}
+
+void	replace_node(t_token *node, char *resu)
+{
+	free(node->start);
+	(*node).start = resu;
+	(*node).length = ft_strlen(resu);
 }
