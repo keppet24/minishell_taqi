@@ -6,12 +6,13 @@
 /*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/04 14:27:45 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/08 17:38:38 by taqi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../expand/expand.h"
+#include "../parser/parser.h"
 
 t_token	create_single_token(char c)
 {
