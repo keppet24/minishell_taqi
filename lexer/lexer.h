@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:52:33 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/03 16:32:25 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/15 13:31:25 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <ctype.h>
+# include <string.h>
 
 typedef enum e_token_type
 {

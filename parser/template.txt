@@ -1,14 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   template.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 11:17:47 by taqi              #+#    #+#             */
-/*   Updated: 2025/04/13 17:25:54 by taqi             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    template.txt                                       :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/04/07 11:17:47 by taqi              #+#    #+#              #
+#    Updated: 2025/04/15 13:44:18 by othmaneetta      ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 #include "parser.h"
 
@@ -200,27 +200,6 @@ void    parser_2(t_token **head, t_cmd **final)
 }
 
 
-
-void    parser(t_token **head, t_cmd **final)
-{
-    t_token *current_start;
-    t_token *current;
-    t_token *node;
-    
-    current_start = *head;
-    current = current_start;
-    while (current)
-    {
-        if (current->type == PIPE)
-        {
-            node = create_cmd_node(current_start, current);
-            if (!node)
-                return ;
-            
-        }
-    }
-}
-
 void    free_cmd_list(t_cmd *head)
 {
     t_cmd   *next;
@@ -238,3 +217,5 @@ void    free_cmd_list(t_cmd *head)
 }
 
 
+
+grep banane < test.txt < banane.txt | wc -l >> nb_ligne.txt

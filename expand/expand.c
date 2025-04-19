@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/08 17:37:30 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/19 16:11:26 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ int		will_expand(t_token *node)
 		return (0);
 }
 
+void	without_quote(t_token **head ,t_token *node)
+{
+	char	*str;
+	(void)head;
+
+	str = return_string(node);
+	replace_node(node, str);
+}
+
 void	expand_token(t_token **head)
 {
 	t_token	*parcours;
@@ -68,6 +77,8 @@ void	expand_token(t_token **head)
 			expand_one_token(parcours);
 		else if (parcours->type == STRING && will_expand(parcours))
 			expand_string(head ,parcours);
+		else if (parcours->type == STRING)
+			without_quote(head, parcours);
 		parcours = parcours->next;
 	}
 }

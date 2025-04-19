@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/08 17:38:38 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/19 16:28:26 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,55 @@ void	free_all(t_token **head)
 	*head = NULL;
 }
 
+void print_list_cmd(t_cmd *head) {
+    t_cmd *cmd_node = head;
+    int i, node_num = 0;
+    while (cmd_node) {
+        printf("--- Commande %d ---\n", node_num++);
+
+        printf("  Cmd (argv): ");
+        i = 0;
+        while (cmd_node->cmd && cmd_node->cmd[i]) {
+            printf("[%s] ", cmd_node->cmd[i]);
+            i++;
+        }
+        printf("\n");
+
+        printf("  Name_in (<): ");
+        i = 0;
+        while (cmd_node->name_in && cmd_node->name_in[i]) {
+            printf("[%s] ", cmd_node->name_in[i]);
+            i++;
+        }
+        printf("\n");
+
+        printf("  Name_out (>/%s): ", cmd_node->append ? ">>" : ">");
+        i = 0;
+        while (cmd_node->name_out && cmd_node->name_out[i]) {
+            printf("[%s] ", cmd_node->name_out[i]);
+            i++;
+        }
+         printf("\n");
+
+        printf("  Limiter (<<): [%s]\n", cmd_node->limiter ? cmd_node->limiter : "(aucun)");
+		printf("  append :%d \n", cmd_node->append);
+        cmd_node = cmd_node->next;
+         if(cmd_node) printf("=======================\n");
+    }
+}
+
+
 int	main(void)
 {
 	char	*source;
 	//int		nbr_of_token;
 	t_token	*head;
+	t_cmd	*final;
 
 	source = readline("Rentrez une commande: ");
 	init_scanner(source);
 	head = NULL;
+	final = NULL;
 	create_list_of_token(&head);
 	//printf(" Mon lexer renvoie\n");
 	//printf("============================================================== \n");	
@@ -126,7 +166,9 @@ int	main(void)
 	//printf("================================================================ \n");	
 	printf("maintenant la liste chaine c'est : \n");
 	print_list(&head);
-	
+	printf("Voici la liste chaine de commande. \n");
+	parser(&head, &final);
+	print_list_cmd(final);
 	free_token_list(&head);
 	free(source);
 	return (0);

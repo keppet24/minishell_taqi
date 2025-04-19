@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:15:35 by taqi              #+#    #+#             */
-/*   Updated: 2025/04/04 14:23:24 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/19 16:10:31 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,26 @@ char	*return_string_from_quote(t_token *node)
 		free(value_token);
 		return (NULL);
 	}
+	return (value_token);
+}
+
+
+char	*return_string(t_token *node)
+{
+	char	*value_token;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 1;
+	value_token = malloc(sizeof(char) * (node->length));
+	while (i < (node->length - 2))
+	{
+		value_token[i] = node->start[j];
+		i++;
+		j++;
+	}
+	value_token[i] = 0;
 	return (value_token);
 }
 

@@ -3,17 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   expand.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:53:03 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/04 14:21:31 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/19 16:10:40 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPAND_H
 # define EXPAND_H 
 
-#include "../lexer/lexer.h"
+# include "../lexer/lexer.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <unistd.h>
+# include <ctype.h>
 
 
 // expand.c
@@ -26,6 +32,8 @@ int		size_of_merged_string(t_token **sub_linked);
 char	*merge_string(t_token **head, int size);
 char	*return_string_from_quote(t_token *node);
 void	expand_one_token_sub(t_token **head);
+char	*return_string(t_token *node);
+
 
 // expand_utils.c
 int	    ft_strlen(char *s);
