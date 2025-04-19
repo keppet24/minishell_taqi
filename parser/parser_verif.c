@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_verif.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:48:50 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/19 15:19:34 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/19 16:43:55 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	syntax_verif(t_token **head)
 				printf("ERROR \n");
 				return (1);	
 			}
+		}
+		else if (current->type == ERROR)
+		{
+			printf("ERROR \n");
+			return (1);	
 		}
 		current = current->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:27:06 by taqi              #+#    #+#             */
-/*   Updated: 2025/04/19 15:35:24 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/19 16:52:55 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,16 @@ t_cmd	*create_one_node(t_token *start, t_token *pipe)
 	while (parcours != pipe)
 	{
 		if (parcours->type == COMMAND)
+		{
+			node->cmd[i] = strndup(parcours->start, parcours->length);
+			i++;
+		}
+		else if (parcours->type == STRING)
+		{
+			node->cmd[i] = strndup(parcours->start, parcours->length);
+			i++;
+		}
+		else if (parcours->type == EXPAND)
 		{
 			node->cmd[i] = strndup(parcours->start, parcours->length);
 			i++;
