@@ -6,7 +6,7 @@
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 14:15:35 by taqi              #+#    #+#             */
-/*   Updated: 2025/04/19 16:10:31 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/22 18:35:15 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,19 @@ char	*return_string(t_token *node)
 void	expand_one_token_sub(t_token **head)
 {
 	t_token	*parcours;
+	char	*str;
 
 	parcours = *head;
 	while (parcours)
 	{
 		if (parcours->type == EXPAND)
 			expand_one_token(parcours);
+		else if (parcours->type == STRING && parcours->start[0] == 39)
+		{
+			str = return_string_from_quote(parcours);
+			replace_node(parcours, str);
+			expand_one_token(parcours);
+		}
 		parcours = parcours->next;
 	}
 }

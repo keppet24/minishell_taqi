@@ -6,7 +6,7 @@
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/19 16:11:26 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/19 21:15:33 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void expand_one_token(t_token *token_node)
 int		will_expand(t_token *node)
 {
 	char	*test;
-	test = malloc(sizeof(char) *(node->length + 1));
+	//test = malloc(sizeof(char) *(node->length + 1));
 	test = strndup(node->start, node->length);
 	if (node->start[0] == '"' && ft_strchr(test, '$'))
 		return (1);

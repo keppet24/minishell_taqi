@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/19 17:03:59 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/22 17:55:04 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include "../expand/expand.h"
 #include "../parser/parser.h"
+#include "../fusion/fusion.h"
 
 t_token	create_single_token(char c)
 {
@@ -166,10 +167,13 @@ int	main(void)
 	//printf("================================================================ \n");	
 	printf("maintenant la liste chaine c'est : \n");
 	print_list(&head);
+	printf("je teste ma partie de code qui doit fusionner \n");
+	fusion(&head);
+	print_list(&head);
 	// printf("Voici la liste chaine de commande. \n");
 	// parser(&head, &final);
 	// print_list_cmd(final);
-	free_token_list(&head);
-	free(source);
+	//free_token_list(&head);
+	//free(source);
 	return (0);
 }
