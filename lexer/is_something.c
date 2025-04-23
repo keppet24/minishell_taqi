@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:06:47 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/03/24 18:07:52 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/23 19:00:22 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	is_space(char c)
 int	is_sep(char c)
 {
 	if (c == ' ')
+		return (1);
+	else if (is_space(c))
 		return (1);
 	else if (c == '|')
 		return (1);

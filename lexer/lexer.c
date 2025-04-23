@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/22 17:55:04 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/23 19:16:33 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	scan_one_token(void)
 	int		nbr;
 	char	c;
 	t_token	lessgo;
-
+			
 	pos = skip_white();
 	nbr = (int)(scanner()->current - pos);
 	if (nbr >= 1)
@@ -145,7 +145,6 @@ void print_list_cmd(t_cmd *head) {
     }
 }
 
-
 int	main(void)
 {
 	char	*source;
@@ -153,27 +152,30 @@ int	main(void)
 	t_token	*head;
 	t_cmd	*final;
 
-	source = readline("Rentrez une commande: ");
-	init_scanner(source);
-	head = NULL;
-	final = NULL;
-	create_list_of_token(&head);
-	//printf(" Mon lexer renvoie\n");
-	//printf("============================================================== \n");	
-	//print_list(&head);
-	//printf("============================================================== \n");	
-	//printf("Mon expand renvoie \n");
-	expand_token(&head);
-	//printf("================================================================ \n");	
-	printf("maintenant la liste chaine c'est : \n");
-	print_list(&head);
-	printf("je teste ma partie de code qui doit fusionner \n");
-	fusion(&head);
-	print_list(&head);
-	// printf("Voici la liste chaine de commande. \n");
-	// parser(&head, &final);
-	// print_list_cmd(final);
-	//free_token_list(&head);
-	//free(source);
+	while ((source = readline("Rentrez une commande: ")) != NULL)
+	{
+		init_scanner(source);
+		head = NULL;
+		final = NULL;
+		create_list_of_token(&head);
+		//printf(" Mon lexer renvoie\n");
+		//printf("============================================================== \n");	
+		//print_list(&head);
+		//printf("============================================================== \n");	
+		//printf("Mon expand renvoie \n");
+		expand_token(&head);
+		//printf("================================================================ \n");	
+		printf("maintenant la liste chaine c'est : \n");
+		print_list(&head);
+		printf("je teste ma partie de code qui doit fusionner \n");
+		fusion(&head);
+		print_list(&head);
+		printf("Voici la liste chaine de commande. \n");
+		parser(&head, &final);
+		print_list_cmd(final);
+		free_token_list(&head);
+		free(source);
+	}
+	
 	return (0);
 }

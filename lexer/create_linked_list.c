@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_linked_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:58:32 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/19 16:35:10 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/23 19:09:45 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	insert_last(t_token **head, t_token *token_list)
 	parcours->next = token_list;
 	token_list->next = NULL;
 }
-
 
 // int	create_list_of_token(t_token **head)
 // {
