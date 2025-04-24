@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/19 21:15:33 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/24 16:28:20 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,21 @@ void expand_one_token(t_token *token_node)
 	value_token = malloc(token_node->length);
 	if (!value_token)
 		return ;
-    while (i < (token_node->length - 1))
-    {
-        value_token[i] = token_node->start[j];
-        i++;
-        j++;
-    }
-    value_token[i] = '\0';
-    value = getenv(value_token);
-    free(value_token);
-    if (!value)
-    {
-        free(token_node->start);
-        token_node->start = strdup("");
-        token_node->length = ft_strlen(value);
+	while (i < (token_node->length - 1))
+		value_token[i++] = token_node->start[j++];
+	value_token[i] = '\0';
+	value = getenv(value_token);
+	free(value_token);
+	if (!value)
+	{
+		free(token_node->start);
+		token_node->start = strdup("");
+		token_node->length = ft_strlen(value);
 		return ;
-    }
-    free(token_node->start);
-    token_node->start = strdup(value);
-    token_node->length = ft_strlen(value);
+	}
+	free(token_node->start);
+	token_node->start = strdup(value);
+	token_node->length = ft_strlen(value);
 }
 
 int		will_expand(t_token *node)
@@ -79,7 +75,12 @@ void	expand_token(t_token **head)
 			expand_string(head ,parcours);
 		else if (parcours->type == STRING)
 			without_quote(head, parcours);
+		else if (parcours->type == HEREDOC && parcours->next != NULL)
+		{
+			parcours = parcours->next;
+			while (parcours->type == WHITESPACE)
+				parcours = parcours->next;
+		}
 		parcours = parcours->next;
 	}
 }
-
