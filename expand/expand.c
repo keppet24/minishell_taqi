@@ -6,7 +6,7 @@
 /*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/24 16:28:20 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/25 16:54:07 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,15 @@ int		will_expand(t_token *node)
 	//test = malloc(sizeof(char) *(node->length + 1));
 	test = strndup(node->start, node->length);
 	if (node->start[0] == '"' && ft_strchr(test, '$'))
+	{
+		free(test);	
 		return (1);
+	}
 	else
+	{
+		free(test);	
 		return (0);
+	}
 }
 
 void	without_quote(t_token **head ,t_token *node)

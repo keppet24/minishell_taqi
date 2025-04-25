@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fusion.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
+/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:05:17 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/22 18:02:29 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/25 16:55:10 by oettaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*create_new_string(t_token *parcours, t_token *end_of_sequence, int i)
 	t_token		*current;
 
 	resu = malloc(sizeof(char) * (i + 1));
-	resu = malloc(500);
+	//resu = malloc(500);
 	j = 0;
 	current = parcours;
 	while (current != end_of_sequence)

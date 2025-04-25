@@ -16,7 +16,7 @@ typedef struct s_cmd
     char            **cmd;
     char            **name_in;
     char            **name_out;
-    char            *limiter;
+    char            **limiter;
     int             *append;
     int             fd_in;
     int             fd_out;
