@@ -6,7 +6,7 @@
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:04:03 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/01 18:33:59 by othmaneetta      ###   ########.fr       */
+/*   Updated: 2025/04/28 19:19:09 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_token	string(char quote)
 	if (is_at_end())
 		return (make_token(ERROR));
 	advance();
-	// while (!is_sep(peek()) && !is_at_end())
-	// 	advance();
 	return (make_token(STRING));
 }
 
@@ -54,13 +52,9 @@ t_token	expand(void)
 char	*skip_white(void)
 {
 	char	*pos;
-	//int		resu;
 
 	pos = scanner()->current;
 	while (is_space(peek()))
-	{
 		advance();
-	}
-	//resu = (int)(scanner()->current - pos);
 	return (pos);
 }

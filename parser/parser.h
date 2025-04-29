@@ -13,25 +13,37 @@
 
 typedef struct s_cmd
 {
-    char            **cmd;
-    char            **name_in;
-    char            **name_out;
-    char            **limiter;
-    int             *append;
-    int             fd_in;
-    int             fd_out;
-    struct s_cmd    *next;
+	char			**cmd;
+	char			**names;
+	int				*redir_type;
+	int				fd_in;
+	int				fd_out;
+	struct s_cmd	*next;
 }	t_cmd;
 
 // parser.c
 void	parser(t_token **head, t_cmd **final);
-t_cmd	*create_one_node(t_token *start, t_token *pipe);
 char	**create_command_line(t_token *start, t_token *pipe);
 int		size_cmd_line(t_token *start, t_token *pipe);
+void	initialise_node(t_cmd **node);
 
+
+// handle.c functions
+t_token	*handle_cmd_token(t_cmd *node, t_token *token, int *i);
+t_token	*handle_redir_in(t_cmd *node, t_token *token, int *r);
+t_token	*handle_redir_out(t_cmd *node, t_token *token, int *r);
+t_token	*handle_heredoc(t_cmd *node, t_token *token, int *r);
+
+// parser.c helper
+void	init_indices(int indices[2]);
 
 // parser_verif.c
-int	syntax_verif(t_token **head);
+int		syntax_verif(t_token **head);
+
+// create_node.c
+t_cmd	*create_one_node(t_token *start, t_token *pipe);
+t_cmd	*create_one_node(t_token *start, t_token *pipe);
+
 
 
 

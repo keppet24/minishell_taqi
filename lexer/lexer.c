@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 17:33:01 by oettaqi           #+#    #+#             */
-/*   Updated: 2025/04/25 17:12:08 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/28 19:18:51 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	scan_one_token(void)
 	int		nbr;
 	char	c;
 	t_token	lessgo;
-			
+
 	pos = skip_white();
 	nbr = (int)(scanner()->current - pos);
 	if (nbr >= 1)
@@ -95,7 +95,7 @@ const char	*type_to_str(t_token_type type)
 
 void	free_all(t_token **head)
 {
-	t_token *parcours;
+	t_token	*parcours;
 	t_token	*tmp;
 
 	parcours = *head;
@@ -112,7 +112,6 @@ void print_list_cmd(t_cmd *head)
 {
     t_cmd *cmd_node = head;
     int i, j, node_num = 0;
-    int name_out_count = 0;
 
     while (cmd_node)
     {
@@ -134,68 +133,35 @@ void print_list_cmd(t_cmd *head)
             printf("(aucun)");
         printf("\n");
 
-        printf("  Name_in (<): ");
-        i = 0;
-        if (cmd_node->name_in)
+        printf("  Redirections: ");
+        j = 0;
+        if (cmd_node->names)
         {
-            while (cmd_node->name_in[i])
+            while (cmd_node->names[j])
             {
-                printf("[%s] ", cmd_node->name_in[i]);
-                i++;
+                printf("[%s] ", cmd_node->names[j]);
+                j++;
             }
-             if (i == 0)
-                 printf("(aucun)");
-        }
-        else
-            printf("(aucun)");
-        printf("\n");
-
-        printf("  Name_out (>/>>): ");
-        i = 0;
-        name_out_count = 0;
-        if (cmd_node->name_out)
-        {
-            while (cmd_node->name_out[i])
-            {
-                printf("[%s] ", cmd_node->name_out[i]);
-                i++;
-            }
-            name_out_count = i;
-             if (i == 0)
-                 printf("(aucun)");
-        }
-        else
-             printf("(aucun)");
-        printf("\n");
-
-        printf("  Limiter (<<): ");
-        i = 0;
-        if (cmd_node->limiter)
-        {
-            while (cmd_node->limiter[i])
-            {
-                printf("[%s] ", cmd_node->limiter[i]);
-                i++;
-            }
-            if (i == 0)
+            if (j == 0)
                 printf("(aucun)");
         }
         else
             printf("(aucun)");
         printf("\n");
-        printf("  Append flags: ");
-        if (cmd_node->append && name_out_count > 0)
+
+        printf("  Types: ");
+        j = 0;
+        if (cmd_node->redir_type)
         {
-            printf("[");
-            for (j = 0; j < name_out_count; j++)
+            while (cmd_node->names[j])
             {
-                printf("%d", cmd_node->append[j]);
-                if (j < name_out_count - 1)
-                    printf(", ");
+                printf("[%d] ", cmd_node->redir_type[j]);
+                j++;
             }
-            printf("]");
+            if (j == 0)
+                printf("(aucun)");
         }
-         else
+        else
             printf("(aucun)");
         printf("\n");
         cmd_node = cmd_node->next;
@@ -221,53 +187,40 @@ void	free_tab(char **tab)
 
 void	free_cmd_list(t_cmd **final)
 {
-    t_cmd *current;
-	
+    t_cmd	*current;
+	t_cmd	*next;
+
 	current = *final;
-    t_cmd *next;
-    while (current)
-    {
-        next = current->next;
+	while (current)
+	{
+		next = current->next;
 		if (current->cmd)
-        	free_tab(current->cmd);
-		if (current->name_in)
-			free_tab(current->name_in);
-		if (current->name_out)
-			free_tab(current->name_out);
-		if (current->limiter)
-			free_tab(current->limiter);
-		if (current->append)
-			free(current->append);
-        free(current);
-        current = next;
-    }
-    *final = NULL;
+			free_tab(current->cmd);
+		if (current->names)
+			free_tab(current->names);
+		if (current->redir_type)
+			free(current->redir_type);
+		free(current);
+		current = next;
+	}
+	*final = NULL;
 }
 
 int	main(void)
 {
 	char	*source;
-	//int		nbr_of_token;
 	t_token	*head;
 	t_cmd	*final;
 
-	source = readline("Rentrez une commande: "); 
+	source = readline("Rentrez une commande: ");
 	init_scanner(source);
 	head = NULL;
 	final = NULL;
 	create_list_of_token(&head);
 	printf(" Mon lexer renvoie\n");
-	//printf("============================================================== \n");	
 	print_list(&head);
-	//printf("============================================================== \n");	
-	//printf("Mon expand renvoie \n");
 	expand_token(&head);
-	//printf("================================================================ \n");	
-	//printf("maintenant la liste chaine c'est : \n");
-	//print_list(&head);
-	//printf("je teste ma partie de code qui doit fusionner \n");
 	fusion(&head);
-	//print_list(&head);
 	printf("Voici la liste chaine de commande. \n");
 	parser(&head, &final);
 	print_list_cmd(final);

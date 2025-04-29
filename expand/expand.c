@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/25 16:54:07 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/28 16:18:17 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lexer/lexer.h"
 #include "expand.h"
 
-void expand_one_token(t_token *token_node)
+void	expand_one_token(t_token *token_node)
 {
-    char 	*value_token;
+	char	*value_token;
 	char	*value;
-    int 	i; 
+	int		i; 
 	int		j;
 
 	i = 0;
@@ -42,28 +42,28 @@ void expand_one_token(t_token *token_node)
 	token_node->length = ft_strlen(value);
 }
 
-int		will_expand(t_token *node)
+int	will_expand(t_token *node)
 {
 	char	*test;
-	//test = malloc(sizeof(char) *(node->length + 1));
+
 	test = strndup(node->start, node->length);
 	if (node->start[0] == '"' && ft_strchr(test, '$'))
 	{
-		free(test);	
+		free(test);
 		return (1);
 	}
 	else
 	{
-		free(test);	
+		free(test);
 		return (0);
 	}
 }
 
-void	without_quote(t_token **head ,t_token *node)
+void	without_quote(t_token **head, t_token *node)
 {
 	char	*str;
-	(void)head;
 
+	(void)head;
 	str = return_string(node);
 	replace_node(node, str);
 }
@@ -78,7 +78,7 @@ void	expand_token(t_token **head)
 		if (parcours->type == EXPAND)
 			expand_one_token(parcours);
 		else if (parcours->type == STRING && will_expand(parcours))
-			expand_string(head ,parcours);
+			expand_string(head, parcours);
 		else if (parcours->type == STRING)
 			without_quote(head, parcours);
 		else if (parcours->type == HEREDOC && parcours->next != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taqi <taqi@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:45:55 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/04 14:45:25 by taqi             ###   ########.fr       */
+/*   Updated: 2025/04/28 16:16:50 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,20 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-void free_token_list(t_token **head)
+void	free_token_list(t_token **head)
 {
-    t_token *current;
-	
-	current = *head;
-    t_token *next;
+	t_token	*current;
+	t_token	*next;
 
-    while (current)
-    {
-        next = current->next;
-        free(current->start);
-        free(current);
-        current = next;
-    }
-    *head = NULL;
+	current = *head;
+	while (current)
+	{
+		next = current->next;
+		free(current->start);
+		free(current);
+		current = next;
+	}
+	*head = NULL;
 }
 
 void	replace_node(t_token *node, char *resu)
@@ -63,4 +62,19 @@ void	replace_node(t_token *node, char *resu)
 	free(node->start);
 	(*node).start = resu;
 	(*node).length = ft_strlen(resu);
+}
+
+int	size_of_merged_string(t_token **sub_linked)
+{
+	t_token	*parcours;
+	int		resu;
+
+	parcours = *sub_linked;
+	resu = 0;
+	while (parcours != NULL)
+	{
+		resu += parcours->length;
+		parcours = parcours->next;
+	}
+	return (resu);
 }

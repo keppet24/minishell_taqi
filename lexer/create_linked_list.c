@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_linked_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oettaqi <oettaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:58:32 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/23 19:09:45 by oettaqi          ###   ########.fr       */
+/*   Updated: 2025/04/28 15:54:06 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	insert_last(t_token **head, t_token *token_list)
 {
 	t_token	*parcours;
 
-	parcours = *head;	
+	parcours = *head;
 	if (*head == NULL)
 	{
 		*head = token_list;
@@ -56,12 +56,13 @@ void	insert_last(t_token **head, t_token *token_list)
 // 	return (j);
 // }
 
-int create_list_of_token(t_token **head)
+int	create_list_of_token(t_token **head)
 {
-	int j = 0;
-	t_token token;
-	t_token *token_list;
+	int		j;
+	t_token	token;
+	t_token	*token_list;
 
+	j = 0;
 	while (!is_at_end())
 	{
 		token = scan_one_token();

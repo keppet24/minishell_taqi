@@ -1,46 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_token.c                                      :+:      :+:    :+:   */
+/*   main_function.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: othmaneettaqi <othmaneettaqi@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 18:56:22 by othmaneetta       #+#    #+#             */
-/*   Updated: 2025/04/28 16:00:05 by othmaneetta      ###   ########.fr       */
+/*   Created: 2025/04/28 16:13:50 by othmaneetta       #+#    #+#             */
+/*   Updated: 2025/04/28 16:13:59 by othmaneetta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "fusion.h"
 
-void	print_list(t_token **head)
+void	fusion(t_token **head)
 {
 	t_token	*parcours;
-	int		j;
+	t_token	*end_of_sequence;
+	int		i;
 
 	parcours = *head;
-	while (parcours != NULL)
+	while (parcours)
 	{
-		j = 0;
-		while (parcours->start[j] && j < parcours->length)
+		i = 0;
+		if (is_mergeable(parcours))
 		{
-			printf("%c", parcours->start[j]);
-			j++;
+			end_of_sequence = parcours;
+			while (is_mergeable(end_of_sequence))
+			{
+				i++;
+				end_of_sequence = end_of_sequence->next;
+				if (end_of_sequence == NULL)
+					break ;
+			}
+			if (i > 1)
+				merge_tokens(parcours, end_of_sequence);
 		}
-		printf(" %s \n", type_to_str(parcours->type));
 		parcours = parcours->next;
 	}
 }
-
-void	print_one_token(t_token *node)
-{
-	int	i;
-
-	i = 0;
-	while (i < node->length)
-	{
-		printf("%c", node->start[i]);
-		i++;
-	}
-	printf("\n");
-}
-
