@@ -24,17 +24,23 @@
 
 // grep banane < test.txt < banane.txt | wc -l >> nb_ligne.txt
 
-void	initialise_node(t_cmd **node)
+void	initialise_node(t_cmd **node, int cmd_size, int redir_size)
 {
-	(*node)->cmd = malloc(sizeof(char *) * 500);
+	(*node)->cmd = malloc(sizeof(char *) * (cmd_size + 1));
 	if (!(*node)->cmd)
 		return ;
-	(*node)->names = malloc(sizeof(char *) * 500);
+	(*node)->names = malloc(sizeof(char *) * (redir_size + 1));
 	if (!(*node)->names)
 		return ;
-	(*node)->redir_type = malloc(sizeof(int) * 500);
+	(*node)->redir_type = malloc(sizeof(int) * (redir_size + 1));
 	if (!(*node)->redir_type)
 		return ;
+	(*node)->full_path = NULL;
+	(*node)->heredoc = 0;
+	(*node)->pos = 0;
+	(*node)->fd_in = 0;
+	(*node)->fd_out = 0;
+	(*node)->nb_cmd = 0;
 }
 
 void	insert_last_tcmd(t_cmd **head, t_cmd *token_list)
