@@ -206,6 +206,29 @@ void	free_cmd_list(t_cmd **final)
 	*final = NULL;
 }
 
+
+t_cmd	*merge(char *source)
+{
+	t_token	*head;
+	t_cmd	*final;
+
+	init_scanner(source);
+	head = NULL;
+	final = NULL;
+	create_list_of_token(&head);
+	//printf(" Mon lexer renvoie\n");
+	//print_list(&head);
+	expand_token(&head);
+	fusion(&head);
+	//printf("Voici la liste chaine de commande. \n");
+	parser(&head, &final);
+	//print_list_cmd(final);
+	free_token_list(&head);
+	//free_cmd_list(&final);
+	//free(source);
+	return (final);
+}
+
 int	main(void)
 {
 	char	*source;
